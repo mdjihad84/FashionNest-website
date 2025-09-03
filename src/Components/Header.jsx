@@ -33,7 +33,7 @@ export default function HeaderNav() {
         </div>
 
         {/* Search bar (Desktop) */}
-        <div className="hidden md:flex items-center bg-gray-100 border px-3 py-2 w-1/2 rounded">
+        <div className="hidden md:flex  items-center border border-black bg-transparent px-3 py-2 w-1/2 rounded">
           <input
             type="text"
             placeholder="Search..."
