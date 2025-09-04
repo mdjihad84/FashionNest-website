@@ -1,18 +1,20 @@
 // src/components/ProductList.jsx
-import { products } from "../Components/data.js";
-import ProductCard from "./ProductCard.jsx";
+import { products } from "../../Components/data.js";
+import ProductCard from "../../Components/ProductCard.jsx";
 import { Link } from "react-router-dom";
 
+
+
 export default function ProductList() {
-  const showProducts = products.slice(16, 24);
+  const showProducts = products.slice(24, 32);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-       <div className="flex items-center mb-6">
-        <h1 className="text-2xl font-semibold uppercase text-black mr-4">t-shirt</h1>
+      <div className="flex items-center mb-6">
+        <h1 className="text-2xl font-semibold uppercase text-black mr-4">pant & trouser</h1>
         <div className="flex-1 border-t border-gray-300"></div>
         <Link
-          to="/Attar"
+          to="/Trouser"
           className="ml-4 px-3 py-1 bg-black text-white text-sm rounded hover:bg-gray-800 transition"
         >
           View All

@@ -1,10 +1,10 @@
 // src/components/ProductList.jsx
-import { products } from "../Components/data.js";
-import ProductCard from "./ProductCard.jsx";
+import { products } from "../../Components/data.js";
+import ProductCard from "../../Components/ProductCard.jsx";
 import { Link } from "react-router-dom";
 
 export default function ProductList() {
-  const showProducts = products.slice(0, 8);
+  const showProducts = products.slice(40, 82);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -13,10 +13,10 @@ export default function ProductList() {
         <h1 className="text-2xl font-semibold uppercase text-black mr-4">attar</h1>
         <div className="flex-1 border-t border-gray-300"></div>
         <Link
-          to="/Attar"
+          to="/"
           className="ml-4 px-3 py-1 bg-black text-white text-sm rounded hover:bg-gray-800 transition"
         >
-          View All
+          Back to Home
         </Link>
       </div>
 

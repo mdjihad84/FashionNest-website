@@ -1,7 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
-import Main from "../Layout/Main";
-import Home from "../Pages/Home";
-import Attar from "../Pages/Attar";
+import Main from "../Layout/Main.jsx";
+import Home from "../Pages/HomePage/Home.jsx";
+import AttarPage from "../Pages/AttarPage/AttarPage.jsx";
+import PanjabiPage from "../Pages/PanjabiPage/PanjabiPage.jsx";
+import TshartPage from "../Pages/TshartPage/TshartPage.jsx";
+import Trouser from "../Pages/Trouser/Trouser.jsx";
+import Food from "../Pages/Food/Food.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -13,8 +17,24 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: "/Attar",
-        element: <Attar />,
+        path: "AttarPage",
+        element: <AttarPage />,
+      },
+      {
+        path: "PanjabiPage",
+        element: <PanjabiPage/>,
+      },
+      {
+        path: "TshartPage",
+        element: <TshartPage/>,
+      },
+      {
+        path: "Trouser",
+        element: <Trouser/>,
+      },
+      {
+        path: "Food",
+        element: <Food/>,
       },
     ],
   },

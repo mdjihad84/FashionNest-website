@@ -1,11 +1,11 @@
-import Honey from "../Images/Honey.jpg";
-import Atar from "../Images/Atar.jpg";
-import Pant from "../Images/Pant.jpg";
-import Shart from "../Images/Shart.jpg";
-import Tshart from "../Images/Tshart.jpg";
-import Tshart1 from "../Images/Tshart1.jpg";
-import Tupi from "../Images/Tupi.jpg";
-import Show from "../Images/Show.jpg";
+import Honey from "../../Images/Honey.jpg";
+import Atar from "../../Images/Atar.jpg";
+import Pant from "../../Images/Pant.jpg";
+import Shart from "../../Images/Shart.jpg";
+import Tshart from "../../Images/Tshart.jpg";
+import Tshart1 from "../../Images/Tshart1.jpg";
+import Tupi from "../../Images/Tupi.jpg";
+import Show from "../../Images/Show.jpg";
 
 const Menu = () => {
   const images = [Atar, Honey, Shart, Pant, Tshart, Show, Tshart1, Tupi];

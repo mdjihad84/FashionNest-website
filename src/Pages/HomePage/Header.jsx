@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Logo from "../Images/logo.png";
+import Logo from "../../Images/Logo.png";
 import { Search, ShoppingCart } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
