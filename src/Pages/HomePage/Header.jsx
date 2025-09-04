@@ -22,14 +22,9 @@ const navItems = navNames.map(name => ({
 export default function HeaderNav() {
   const [cartCount, setCartCount] = useState(0);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState(null); // Track clicked dropdown
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(null); // Mobile dropdown tracking
 
   const handleAddToCart = () => setCartCount(cartCount + 1);
-
-  const handleDropdownClick = (index) => {
-    if(openDropdown === index) setOpenDropdown(null);
-    else setOpenDropdown(index);
-  };
 
   return (
     <header className="w-full bg-white shadow-md sticky top-0 z-50">
@@ -88,25 +83,21 @@ export default function HeaderNav() {
         </div>
       </div>
 
-      {/* Desktop Navigation */}
+      {/* Desktop Navigation (Hover Dropdown) */}
       <ul className="hidden md:flex justify-center gap-6 p-4 bg-white border-t">
         {navItems.map((item, i) => (
           <li key={i} className="relative group">
-            <div
-              onClick={() => handleDropdownClick(i)}
+            <Link
+              to={item.url}
               className="px-3 py-2 rounded hover:bg-gray-100 cursor-pointer text-[18px] text-black font-normal flex items-center gap-1"
             >
-              <Link to={item.url}>{item.name}</Link>
+              {item.name}
               {item.subItems && (
                 <FontAwesomeIcon icon={faAngleDown} className="text-gray-500 w-3 h-3" />
               )}
-            </div>
+            </Link>
             {item.subItems && (
-              <ul
-                className={`absolute left-0 mt-2 w-44 bg-white border rounded shadow-md transition duration-200 z-50 ${
-                  openDropdown === i ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-                }`}
-              >
+              <ul className="absolute left-0 mt-2 w-44 bg-white border rounded shadow-md opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition duration-200 z-50">
                 {item.subItems.map((sub, j) => (
                   <li key={j}>
                     <Link
@@ -127,7 +118,7 @@ export default function HeaderNav() {
       {/* Mobile Menu Overlay */}
       {mobileNavOpen && (
         <div className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-40">
-          <div className="absolute top-0 left-0 w-3/4 max-w-xs h-full bg-white p-4 shadow-lg flex flex-col gap-4 overflow-y-auto">
+          <div className="absolute top-0 left-0 w-full max-w-xs h-full bg-white p-4 shadow-lg flex flex-col gap-2 overflow-y-auto">
             <button
               className="self-end mb-2 p-2 hover:bg-gray-100 rounded transition"
               onClick={() => setMobileNavOpen(false)}
@@ -137,7 +128,7 @@ export default function HeaderNav() {
             {navItems.map((item, i) => (
               <div key={i} className="relative">
                 <div
-                  onClick={() => handleDropdownClick(i)}
+                  onClick={() => setMobileDropdownOpen(mobileDropdownOpen === i ? null : i)}
                   className="block px-3 py-2 rounded hover:bg-gray-100 text-black font-medium flex items-center justify-between cursor-pointer"
                 >
                   <Link to={item.url}>{item.name}</Link>
@@ -145,12 +136,8 @@ export default function HeaderNav() {
                     <FontAwesomeIcon icon={faAngleDown} className="text-gray-500 w-3 h-3" />
                   )}
                 </div>
-                {item.subItems && (
-                  <ul
-                    className={`ml-4 mt-1 border-l border-gray-200 bg-white rounded transition duration-200 ${
-                      openDropdown === i ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-                    }`}
-                  >
+                {item.subItems && mobileDropdownOpen === i && (
+                  <ul className="ml-4 mt-1 border-l border-gray-200 bg-white rounded">
                     {item.subItems.map((sub, j) => (
                       <li key={j}>
                         <Link

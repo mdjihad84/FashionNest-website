@@ -569,7 +569,7 @@ export const products = [
     img: "https://believerssign.com.bd/_next/image?url=https%3A%2F%2Fapi.believerssign.com.bd%2Fpublic%2Fproduct%2F2I8WbL96F9Zf86zJfDX.jpg&w=1080&q=75",
   },
   {
-     id: 6,
+    id: 6,
     title: "Oudh Attar",
     oldPrice: 2400,
     price: 720,

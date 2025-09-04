@@ -22,7 +22,7 @@ export default function ProductList() {
       
       {/* Header with line */}
       <div className="flex items-center mb-6">
-        <h1 className="text-2xl font-semibold uppercase text-black mr-4">attar</h1>
+        <h1 className="text-[20px] lg:text-2xl font-semibold uppercase text-black mr-4">attar</h1>
         <div className="flex-1 border-t border-gray-300"></div>
         <Link
           to="/"
