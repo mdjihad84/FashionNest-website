@@ -2,32 +2,40 @@ import { useState } from "react";
 import Logo from "../../Images/Logo.png";
 import { Search, ShoppingCart } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faAngleDown, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-const navItems = [
-  { name: "Attar", url: "#", subItems: ["Option 1", "Option 2"] },
-  { name: "Panajbi", url: "#", subItems: ["Option 1", "Option 2"] },
-  { name: "T-shirt", url: "#", subItems: ["Option 1", "Option 2"] },
-  { name: "Pant & Trouser", url: "#", subItems: ["Option 1", "Option 2"] },
-  { name: "Women's Clothing", url: "#", subItems: ["Option 1", "Option 2"] },
-  { name: "Combo Offers", url: "#", subItems: ["Option 1", "Option 2"] },
-  { name: "Shirt", url: "#", subItems: ["Option 1", "Option 2"] },
-  { name: "Footwear", url: "#", subItems: ["Option 1", "Option 2"] },
-  { name: "Combo", url: "#", subItems: ["Option 1", "Option 2"] },
-];
+// Dropdown Items
+const dropdownItems = ["Show", "Panjabe", "Food", "Trouser"];
+// Nav Names
+const navNames = ["Attar", "Panajbi", "T-shirt", "Pant & Trouser", "Women's Clothing", "Combo Offers", "Shirt", "Footwear", "Combo"];
+// Generate navItems
+const navItems = navNames.map(name => ({
+  name,
+  url: `/${name.replace(/\s+/g, "-").toLowerCase()}`, 
+  subItems: dropdownItems.map(sub => ({
+    name: sub,
+    url: `/${sub.toLowerCase()}`
+  }))
+}));
 
 export default function HeaderNav() {
   const [cartCount, setCartCount] = useState(0);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null); // Track clicked dropdown
 
   const handleAddToCart = () => setCartCount(cartCount + 1);
+
+  const handleDropdownClick = (index) => {
+    if(openDropdown === index) setOpenDropdown(null);
+    else setOpenDropdown(index);
+  };
 
   return (
     <header className="w-full bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 md:py-4">
         
-        {/* Left Hamburger Icon for Mobile */}
+        {/* Hamburger Icon for Mobile */}
         <button
           className="md:hidden flex flex-col justify-between h-5 w-6 p-1 cursor-pointer"
           onClick={() => setMobileNavOpen(!mobileNavOpen)}
@@ -38,7 +46,7 @@ export default function HeaderNav() {
         </button>
 
         {/* Logo */}
-         <Link href="/">
+        <Link to="/">
           <div className="flex-1 flex justify-center md:justify-start cursor-pointer">
             <img
               src={Logo}
@@ -62,12 +70,10 @@ export default function HeaderNav() {
 
         {/* Right Icons */}
         <div className="lg:gap-[4rem] flex items-center gap-3 md:gap-4">
-          {/* User icon */}
           <button className="bg-white p-2 rounded-full shadow">
             <FontAwesomeIcon icon={faUser} className="text-black w-5 h-5" />
           </button>
 
-          {/* Cart */}
           <div className="relative">
             <button
               className="bg-white p-2 rounded-full shadow"
@@ -86,19 +92,30 @@ export default function HeaderNav() {
       <ul className="hidden md:flex justify-center gap-6 p-4 bg-white border-t">
         {navItems.map((item, i) => (
           <li key={i} className="relative group">
-            <a
-              href={item.url}
-              className="px-3 py-2 rounded hover:bg-gray-100 cursor-pointer text-[18px] text-black font-normal"
+            <div
+              onClick={() => handleDropdownClick(i)}
+              className="px-3 py-2 rounded hover:bg-gray-100 cursor-pointer text-[18px] text-black font-normal flex items-center gap-1"
             >
-              {item.name}
-            </a>
+              <Link to={item.url}>{item.name}</Link>
+              {item.subItems && (
+                <FontAwesomeIcon icon={faAngleDown} className="text-gray-500 w-3 h-3" />
+              )}
+            </div>
             {item.subItems && (
-              <ul className="absolute left-0 mt-2 w-40 bg-white border rounded shadow-md opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none group-hover:pointer-events-auto z-50">
+              <ul
+                className={`absolute left-0 mt-2 w-44 bg-white border rounded shadow-md transition duration-200 z-50 ${
+                  openDropdown === i ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+                }`}
+              >
                 {item.subItems.map((sub, j) => (
                   <li key={j}>
-                    <a href="#" className="block px-3 py-2 hover:bg-gray-100">
-                      {sub}
-                    </a>
+                    <Link
+                      to={sub.url}
+                      className="block px-3 py-2 hover:bg-gray-100 flex justify-between items-center text-black"
+                    >
+                      {sub.name}
+                      <FontAwesomeIcon icon={faCheck} className="text-gray-300 w-3 h-3" />
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -119,19 +136,30 @@ export default function HeaderNav() {
             </button>
             {navItems.map((item, i) => (
               <div key={i} className="relative">
-                <a
-                  href={item.url}
-                  className="block px-3 py-2 rounded hover:bg-gray-100 text-black font-medium"
+                <div
+                  onClick={() => handleDropdownClick(i)}
+                  className="block px-3 py-2 rounded hover:bg-gray-100 text-black font-medium flex items-center justify-between cursor-pointer"
                 >
-                  {item.name}
-                </a>
+                  <Link to={item.url}>{item.name}</Link>
+                  {item.subItems && (
+                    <FontAwesomeIcon icon={faAngleDown} className="text-gray-500 w-3 h-3" />
+                  )}
+                </div>
                 {item.subItems && (
-                  <ul className="ml-4 mt-1 border-l border-gray-200">
+                  <ul
+                    className={`ml-4 mt-1 border-l border-gray-200 bg-white rounded transition duration-200 ${
+                      openDropdown === i ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+                    }`}
+                  >
                     {item.subItems.map((sub, j) => (
                       <li key={j}>
-                        <a href="#" className="block px-3 py-2 hover:bg-gray-100">
-                          {sub}
-                        </a>
+                        <Link
+                          to={sub.url}
+                          className="block px-3 py-2 hover:bg-gray-100 flex justify-between items-center text-black"
+                        >
+                          {sub.name}
+                          <FontAwesomeIcon icon={faCheck} className="text-gray-300 w-3 h-3" />
+                        </Link>
                       </li>
                     ))}
                   </ul>
