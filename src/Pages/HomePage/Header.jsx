@@ -3,16 +3,24 @@ import Logo from "../../Images/Logo.png";
 import { Search, ShoppingCart } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faAngleDown, faCheck } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 // Dropdown Items
 const dropdownItems = ["Show", "Panjabe", "Food", "Trouser"];
-// Nav Names
-const navNames = ["Attar", "Panajbi", "T-shirt", "Pant & Trouser", "Women's Clothing", "Combo Offers", "Shirt", "Footwear", "Combo"];
-// Generate navItems
-const navItems = navNames.map(name => ({
-  name,
-  url: `/${name.replace(/\s+/g, "-").toLowerCase()}`, 
+
+// Nav Items with NavLink URLs
+const navItems = [
+  { name: "Attar", url: "/AttarPage" },
+  { name: "Panajbi", url: "/PanjabiPage" },
+  { name: "T-shirt", url: "/TshartPage" },
+  { name: "Pant & Trouser", url: "/Trouser" },
+  { name: "Women's Clothing", url: "/Food" },
+  { name: "Combo Offers", url: "/AttarPage" },
+  { name: "Shirt", url: "/TshartPage" },
+  { name: "Footwear", url: "/Trouser" },
+  { name: "Combo", url: "/Food" },
+].map(item => ({
+  ...item,
   subItems: dropdownItems.map(sub => ({
     name: sub,
     url: `/${sub.toLowerCase()}`
@@ -22,14 +30,14 @@ const navItems = navNames.map(name => ({
 export default function HeaderNav() {
   const [cartCount, setCartCount] = useState(0);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
-  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(null); // Mobile dropdown tracking
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(null);
 
   const handleAddToCart = () => setCartCount(cartCount + 1);
 
   return (
     <header className="w-full bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 md:py-4">
-        
+
         {/* Hamburger Icon for Mobile */}
         <button
           className="md:hidden flex flex-col justify-between h-5 w-6 p-1 cursor-pointer"
@@ -41,7 +49,7 @@ export default function HeaderNav() {
         </button>
 
         {/* Logo */}
-        <Link to="/">
+        <NavLink to="/">
           <div className="flex-1 flex justify-center md:justify-start cursor-pointer">
             <img
               src={Logo}
@@ -49,10 +57,10 @@ export default function HeaderNav() {
               className="w-[150px] sm:w-[180px] md:w-[200px] h-auto"
             />
           </div>
-        </Link>
+        </NavLink>
 
         {/* Desktop Search Bar */}
-        <div className="lg:mr-[145px] hidden md:flex items-center border border-black bg-transparent w-1/2 rounded overflow-hidden mx-4">
+        <div className="lg:mr-[68px] hidden md:flex items-center border border-black bg-transparent w-1/2 rounded overflow-hidden mx-4">
           <input
             type="text"
             placeholder="Search..."
@@ -65,9 +73,12 @@ export default function HeaderNav() {
 
         {/* Right Icons */}
         <div className="lg:gap-[4rem] flex items-center gap-3 md:gap-4">
-          <button className="bg-white p-2 rounded-full shadow">
+          <NavLink
+            to="/Login"
+            className="bg-white p-2 rounded-full shadow hover:bg-gray-100 transition"
+          >
             <FontAwesomeIcon icon={faUser} className="text-black w-5 h-5" />
-          </button>
+          </NavLink>
 
           <div className="relative">
             <button
@@ -83,11 +94,11 @@ export default function HeaderNav() {
         </div>
       </div>
 
-      {/* Desktop Navigation (Hover Dropdown) */}
+      {/* Desktop Navigation */}
       <ul className="hidden md:flex justify-center gap-6 p-4 bg-white border-t">
         {navItems.map((item, i) => (
           <li key={i} className="relative group">
-            <Link
+            <NavLink
               to={item.url}
               className="px-3 py-2 rounded hover:bg-gray-100 cursor-pointer text-[18px] text-black font-normal flex items-center gap-1"
             >
@@ -95,18 +106,18 @@ export default function HeaderNav() {
               {item.subItems && (
                 <FontAwesomeIcon icon={faAngleDown} className="text-gray-500 w-3 h-3" />
               )}
-            </Link>
+            </NavLink>
             {item.subItems && (
               <ul className="absolute left-0 mt-2 w-44 bg-white border rounded shadow-md opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition duration-200 z-50">
                 {item.subItems.map((sub, j) => (
                   <li key={j}>
-                    <Link
+                    <NavLink
                       to={sub.url}
                       className="block px-3 py-2 hover:bg-gray-100 flex justify-between items-center text-black"
                     >
                       {sub.name}
                       <FontAwesomeIcon icon={faCheck} className="text-gray-300 w-3 h-3" />
-                    </Link>
+                    </NavLink>
                   </li>
                 ))}
               </ul>
@@ -115,7 +126,7 @@ export default function HeaderNav() {
         ))}
       </ul>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu */}
       {mobileNavOpen && (
         <div className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-40">
           <div className="absolute top-0 left-0 w-full max-w-xs h-full bg-white p-4 shadow-lg flex flex-col gap-2 overflow-y-auto">
@@ -131,7 +142,7 @@ export default function HeaderNav() {
                   onClick={() => setMobileDropdownOpen(mobileDropdownOpen === i ? null : i)}
                   className="block px-3 py-2 rounded hover:bg-gray-100 text-black font-medium flex items-center justify-between cursor-pointer"
                 >
-                  <Link to={item.url}>{item.name}</Link>
+                  <NavLink to={item.url}>{item.name}</NavLink>
                   {item.subItems && (
                     <FontAwesomeIcon icon={faAngleDown} className="text-gray-500 w-3 h-3" />
                   )}
@@ -140,13 +151,13 @@ export default function HeaderNav() {
                   <ul className="ml-4 mt-1 border-l border-gray-200 bg-white rounded">
                     {item.subItems.map((sub, j) => (
                       <li key={j}>
-                        <Link
+                        <NavLink
                           to={sub.url}
                           className="block px-3 py-2 hover:bg-gray-100 flex justify-between items-center text-black"
                         >
                           {sub.name}
                           <FontAwesomeIcon icon={faCheck} className="text-gray-300 w-3 h-3" />
-                        </Link>
+                        </NavLink>
                       </li>
                     ))}
                   </ul>

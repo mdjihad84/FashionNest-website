@@ -6,6 +6,7 @@ import PanjabiPage from "../Pages/PanjabiPage/PanjabiPage.jsx";
 import TshartPage from "../Pages/TshartPage/TshartPage.jsx";
 import Trouser from "../Pages/Trouser/Trouser.jsx";
 import Food from "../Pages/Food/Food.jsx";
+import Login from "../Pages/Login/Login.jsx";
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
       {
         path: "Food",
         element: <Food/>,
+      },
+      {
+        path: "Login",
+        element: <Login/>,
       },
     ],
   },
