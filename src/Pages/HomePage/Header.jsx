@@ -3,6 +3,7 @@ import Logo from "../../Images/Logo.png";
 import { Search, ShoppingCart } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const navItems = [
   { name: "Attar", url: "#", subItems: ["Option 1", "Option 2"] },
@@ -37,9 +38,15 @@ export default function HeaderNav() {
         </button>
 
         {/* Logo */}
-        <div className="flex-1 flex justify-center md:justify-start">
-          <img src={Logo} alt="Logo" className="w-[150px] sm:w-[180px] md:w-[200px] h-auto" />
-        </div>
+         <Link href="/">
+          <div className="flex-1 flex justify-center md:justify-start cursor-pointer">
+            <img
+              src={Logo}
+              alt="Logo"
+              className="w-[150px] sm:w-[180px] md:w-[200px] h-auto"
+            />
+          </div>
+        </Link>
 
         {/* Desktop Search Bar */}
         <div className="lg:mr-[145px] hidden md:flex items-center border border-black bg-transparent w-1/2 rounded overflow-hidden mx-4">

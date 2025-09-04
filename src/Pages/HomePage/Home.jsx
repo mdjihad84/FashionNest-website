@@ -1,5 +1,5 @@
+import { Helmet } from "react-helmet";
 import Hero from "./Hero";
-// import Navigation from "../Components/Navigation";
 import Categories from "./Categories";
 import AttarSection from "./AttarSection";
 import PanjabiSection from "./PanjabiSection";
@@ -10,6 +10,11 @@ import Food from "./Food";
 const Home = () => {
   return (
     <div>
+      <Helmet>
+        <title>Home | My Shop</title>
+        <meta name="description" content="Welcome to My Shop. Explore our collections of attar, panjabi, shirts, trousers, and food items." />
+        <meta name="keywords" content="attar, panjabi, shirt, trouser, food, shop, ecommerce" />
+      </Helmet>
       <>
         {/* <Navigation /> */}
         <Hero />
@@ -23,4 +28,5 @@ const Home = () => {
     </div>
   );
 };
+
 export default Home;

@@ -2,12 +2,24 @@
 import { products } from "../../Components/data.js";
 import ProductCard from "../../Components/ProductCard.jsx";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 export default function ProductList() {
   const showProducts = products.slice(40, 82);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div>
+        <Helmet>
+          <title>Attar | Fashionnest</title>
+          <meta
+            name="description"
+            content="Welcome to Fashionnest. Explore our collections of attar, panjabi, shirts, trousers, and food items."
+          />
+          <meta name="keywords" content="attar, panjabi, shirt, trouser, food, shop" />
+        </Helmet>
+      </div>
+      
       {/* Header with line */}
       <div className="flex items-center mb-6">
         <h1 className="text-2xl font-semibold uppercase text-black mr-4">attar</h1>
